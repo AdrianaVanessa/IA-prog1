@@ -21,17 +21,17 @@ def juego_adivina_numero():
 
     busqueda_binaria(lista_numeros) #llamamos a la función para empezar con el alg busqueda binaria
 
-
 #++++++++++++++++++++++++++++++++++++++ búsqueda binaria**************************************
 def busqueda_binaria(lista_numeros):
-    print(lista_numeros)
-    punto_medio = len(lista_numeros)//2 #encontramos el punto medio de la lista de números que dio el usuario
-    print(f"\n¿El número que tiene en mente es: {lista_numeros[punto_medio]} ?\nSi = 1\nEs menor = 2\nEs mayor = 3  ")
-    respuesta= input()
-    while True:
+    
+        print(lista_numeros)
+        punto_medio = len(lista_numeros)//2 #encontramos el punto medio de la lista de números que dio el usuario
+        print(f"\n¿El número que tiene en mente es: {lista_numeros[punto_medio]} ?\nSi = 1\nEs menor = 2\nEs mayor = 3  ")
+        respuesta= input()
+
         if respuesta == "1":
             print(f"\nTu número adivinado es: {lista_numeros[punto_medio]}") #se adivinó el número
-            break
+            
         elif respuesta == "2":
             lista_numeros = lista_numeros[:punto_medio]  # ajustamos la lista para buscar en la mitad inferior usando :punto_medio, de esta manera realizamos una operación de segmentación de listas, se selecciona una subsecuencia de la lista lista_numeros desde el índice 0 hasta el elemento punto_medio sin incluirlo, asi se reduce la búsqueda a la mitad inferior de la lista y se AJUSTA EL RANGO DE BÚSQUEDA
             busqueda_binaria(lista_numeros)
@@ -42,7 +42,6 @@ def busqueda_binaria(lista_numeros):
             print("\nRespuesta inválida. Por favor, elija 1, 2, o 3")
             respuesta= input()
     
-
 #++++++++++++++++++++++++++++++++++++++ gato **************************************
 # En esta funcion se manda una lista de listas conteniendo los elementos previamente
 # registrados, ya sean vacios por el inicio del juego o los regsitrados por la maquina o jugador
@@ -78,8 +77,9 @@ def movMaquina(tablero):
     return random.choice(casillasLibre)
 
 
-
+#funcion principal juego de jugar gato
 def jugarGato():
+    #tablero inicial con un for
     tablero = [[' ' for _ in range(3)] for _ in range(3)]
     while True:
         print("\nInstrucciones. Seleccione la casilla en la que quiere poner su movimiento con el formato: (fila,columna), ejemplo: 1,1\nLas filas son 0,1 y 2, las columnas son 0,1 y 2\n")
@@ -87,6 +87,7 @@ def jugarGato():
 
         # Turno del jugador
         movJugador = input("\nEs tu turno jugador X:\n")
+        #se obtienen las "coordenadas" del mov del jugador
         fila, columna = map(int, movJugador.split(','))
 
         if tablero[fila][columna] == ' ':
@@ -105,7 +106,7 @@ def jugarGato():
             imprimirTablero(tablero)
             print("¡Jugador O gana!")
             break
-
+            
         if ' ' not in [casilla for fila in tablero for casilla in fila]:
             imprimirTablero(tablero)
             print("El juego ha terminado en empate.")
