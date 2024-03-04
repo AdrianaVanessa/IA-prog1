@@ -72,10 +72,9 @@ def veriGanador(tablero):
         return True
     if tablero[0][2] == tablero[1][1] == tablero[2][0] and tablero[0][2] != ' ':
         return True
-
     return False
 
-# En esta funcion buscara lugares vacios dentro de la lista de listas y de ello obtendra un lugar aleatorio
+# En esta funcion buscara lugares vacios dentro de la lista de tuplas y de ello obtendra un lugar aleatorio
 def movMaquina(tablero):
     casillasLibre = [(fila, columna) for fila in range(3) for columna in range(3) if tablero[fila][columna] == ' '] # esta var. es una lista de tuplas que tiene las coordenadas de las casillas vacias mediante  una comprensión de listas (con todas las combinaciones de filas y col) y un bucle anidado
     return random.choice(casillasLibre) #aqui la función devuelve una tupla aleatoria de las coordenadas de una casilla vacía mediante la funcion random.choice del modeulo random
