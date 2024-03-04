@@ -54,45 +54,48 @@ def imprimirTablero(tablero):
 # Columna u diagonales
 def veriGanador(tablero):
     # Verificar filas
+    """ esta sección lo que hace es como tal iterar sobre cada fila del tablero de juego para comparar los elementos en las posiciones 0, 1 y 2 de cada fila, luego si todas son iguales sin vaios significa que hay un ganador (toda la sila marcada) sino devuelve un false"""
     for fila in tablero:
         if fila[0] == fila[1] == fila[2] and fila[0] != ' ':
             return True
 
     # Verificar columnas
+        """aqui de igual forma se itera en las columnas del tablero de juego, compara las posiciones 0,1 y 2 de cada columna y si son iguales sin vacios hay un ganador (toda la col marcada) sino devuelve un false """
     for col in range(3):
         if tablero[0][col] == tablero[1][col] == tablero[2][col] and tablero[0][col] != ' ':
             return True
 
     # Verificar diagonales
+    """ para las diagonales se trabaja de la misma forma, compara las casillas con coordenadas 00,11,22 y si son iguales sin vacios significa que se marco toda la diagonal principal de nuestro tablero y alguien ganó
+    para la otra diagonal se comparan las casillas 02,11, y 20 y se sigue el mismo procedimiento, sino se devuelve un false"""
     if tablero[0][0] == tablero[1][1] == tablero[2][2] and tablero[0][0] != ' ':
         return True
     if tablero[0][2] == tablero[1][1] == tablero[2][0] and tablero[0][2] != ' ':
         return True
-
     return False
 
-# En esta funcion buscara lugares vacios dentro de la lista de listas y de ello obtendra un lugar aleatorio
+# En esta funcion buscara lugares vacios dentro de la lista de tuplas y de ello obtendra un lugar aleatorio
 def movMaquina(tablero):
-    casillasLibre = [(fila, columna) for fila in range(3) for columna in range(3) if tablero[fila][columna] == ' ']
-    return random.choice(casillasLibre)
+    casillasLibre = [(fila, columna) for fila in range(3) for columna in range(3) if tablero[fila][columna] == ' '] # esta var. es una lista de tuplas que tiene las coordenadas de las casillas vacias mediante  una comprensión de listas (con todas las combinaciones de filas y col) y un bucle anidado
+    return random.choice(casillasLibre) #aqui la función devuelve una tupla aleatoria de las coordenadas de una casilla vacía mediante la funcion random.choice del modeulo random
 
 
 #funcion principal juego de jugar gato
 def jugarGato():
-    #tablero inicial con un for
+    #tablero inicial 3x3 con un for y muestra las casillas vacias
     tablero = [[' ' for _ in range(3)] for _ in range(3)]
-    while True:
+    while True: #bucle infinito hasta que se alcanza la cond para finalizar
         print("\nInstrucciones. Seleccione la casilla en la que quiere poner su movimiento con el formato: (fila,columna), ejemplo: 1,1\nLas filas son 0,1 y 2, las columnas son 0,1 y 2\n")
         imprimirTablero(tablero)
 
-        # Turno del jugador
+        # Turno del jugador X (humano)
         movJugador = input("\nEs tu turno jugador X:\n")
         #se obtienen las "coordenadas" del mov del jugador
         fila, columna = map(int, movJugador.split(','))
 
-        if tablero[fila][columna] == ' ':
+        if tablero[fila][columna] == ' ': #si esta vacia la casilla la marca con X
             tablero[fila][columna] = 'X'
-            if veriGanador(tablero):
+            if veriGanador(tablero): #si ya gano X lo muestra en pantalla
                 imprimirTablero(tablero)
                 print("¡Jugador X gana!")
                 break
@@ -100,15 +103,15 @@ def jugarGato():
             print("Movimiento inválido. La casilla ya está ocupada.")
 
         # Turno de la maquina
-        maquinaFila, maquinaColumna = movMaquina(tablero)
-        tablero[maquinaFila][maquinaColumna] = 'O'
-        if veriGanador(tablero):
+        maquinaFila, maquinaColumna = movMaquina(tablero) #llamamos a la funcion explicada para el agente inteligente
+        tablero[maquinaFila][maquinaColumna] = 'O' #si esta vacia la casilla marca jugador O
+        if veriGanador(tablero): #verificacion si ganó el AI
             imprimirTablero(tablero)
             print("¡Jugador O gana!")
             break
             
         if ' ' not in [casilla for fila in tablero for casilla in fila]:
-            imprimirTablero(tablero)
+            imprimirTablero(tablero) #si NO hay casillas vacias termina en empate
             print("El juego ha terminado en empate.")
             break
 
