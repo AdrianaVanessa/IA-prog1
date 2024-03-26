@@ -6,8 +6,8 @@ tablero = [
 ]
 
 # Jugadores
-jugadorHumano = 'X'
-jugadorIA = 'O'
+jugadorHumano = 'O'
+jugadorIA = 'X'
 
 # Función para imprimir el tablero en la consola
 def imprimirTablero(tablero):
@@ -102,7 +102,7 @@ def turnoJugadorHumano(tablero):
 
 # Función principal para ejecutar el juego
 def jugarGato():
-    jugadorActual = jugadorHumano
+    jugadorActual = jugadorIA
     while True:
         imprimirTablero(tablero)
         if jugadorActual == jugadorHumano:
