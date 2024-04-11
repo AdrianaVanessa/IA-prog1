@@ -19,12 +19,17 @@ def tokenizar_lematizar(texto):
 
 def main():
     # Leer el archivo de texto
-    with open('pinocho.txt', 'r', encoding='utf-8') as file:
+    with open('tweets_asco.txt', 'r', encoding='utf-8') as file:
         texto = file.read()
-    
+
     # Tokenizar y lematizar el texto
     tokens, lemas, sentences = tokenizar_lematizar(texto)
     
+    # Eliminar menciones
+    for tkn in tokens:
+        if tkn[0] == '@':
+            tokens.remove(tkn)
+
     # Imprimir los resultados
     sentence_id = 0
     word_id = 0
