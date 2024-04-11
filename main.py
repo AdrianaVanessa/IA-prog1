@@ -12,8 +12,9 @@ def tokenizar_lematizar(texto):
     lemas = []
     for sentence in doc.sentences:
         for word in sentence.words:
-            tokens.append(word.text)
-            lemas.append(word.lemma)
+            if word[0] == '@':
+                tokens.append(word.text)
+                lemas.append(word.lemma)
     
     return tokens, lemas, doc.sentences
 
@@ -24,11 +25,6 @@ def main():
 
     # Tokenizar y lematizar el texto
     tokens, lemas, sentences = tokenizar_lematizar(texto)
-    
-    # Eliminar menciones
-    for tkn in tokens:
-        if tkn[0] == '@':
-            tokens.remove(tkn)
 
     # Imprimir los resultados
     sentence_id = 0
