@@ -12,7 +12,7 @@ def tokenizar_lematizar(texto):
     lemas = []
     for sentence in doc.sentences:
         for word in sentence.words:
-            if word[0] == '@':
+            if word[0] != '@':
                 tokens.append(word.text)
                 lemas.append(word.lemma)
     
